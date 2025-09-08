@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking ni Benjo • Choose Slot</title>
+
+  <!-- Your existing stylesheet -->
+  <link rel="stylesheet" href="parking.css" />
+
+  <!-- Fonts / Icons (leave as‑is) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ▸ NAVBAR -->
+  <header class="navbar">
+    <div class="logo">PARKCAR</div>
+    <div class="search">
+      <i class="fas fa-bars"></i>
+      <input type="text" placeholder="Search" />
+    </div>
+  </header>
+
+  <!-- ▸ HERO -->
+  <section class="hero">
+    <div class="text">
+      <h1>PICK YOUR SLOT</h1>
+      <h2>Basement • 2nd • 3rd</h2>
+      <p>Select an available slot below and proceed to booking.</p>
+    </div>
+    <div class="car-image"><img src="pictures/car.png" alt="Car" /></div>
+  </section>
+
+  <!-- ▸ SLOT SELECTOR -->
+  <main class="wrapper">
+    <section id="floors"></section>
+
+    <button id="proceedBtn" class="proceed" disabled>
+    Proceed to Booking
+    </button>
+  </main>
+
+  <!-- ▸ FOOTER (unchanged) -->
+  <footer class="footer">
+    <div class="contact">
+      <p><img src="pictures/location.png" class="contact-icon">National University, Manila</p>
+      <p><img src="pictures/call.png"     class="contact-icon">(63) 972 859 2648</p>
+      <p><img src="pictures/gmail.png"    class="contact-icon">numanila@gmail.com</p>
+    </div>
+    <div class="about">
+      <h3>About the company</h3>
+      <p>Parking ni Benjo offers safe, convenient, and affordable parking.</p>
+    </div>
+    <div class="socials">
+      <a href="#"><img src="pictures/facebook.png"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  class="social-icon"></a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="slot.js"></script>
+</body>
+</html>

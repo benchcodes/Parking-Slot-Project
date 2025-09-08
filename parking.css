@@ -1,0 +1,168 @@
+/* ========== 1. Base Styles (All Pages) ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(to bottom, #f5d4d4 0%, #8e7e7e 100%);
+  color: #111;
+}
+
+/* ========== 2. Navbar/Header (All Pages) ========== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%; z-index: 1000;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #4a3c3c; color: #fff; padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.logo {
+  font-weight: 700;
+  background: #fff; color: #4a3c3c;
+  padding: 0.3rem 1rem; border-radius: 20px;
+}
+.search {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.search input {
+  padding: 0.4rem 0.8rem; border: none; border-radius: 20px;
+}
+
+/* ========== 3. Hero Section (home.html, choose-slot.html) ========== */
+.hero {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 3rem 4rem; flex-wrap: wrap;
+}
+.text h1 {
+  font-size: 4rem; font-weight: 700; margin-bottom: 1rem; color: #111;
+}
+.text h2 { /* Add if needed */ }
+.text p {
+  font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 400px;
+}
+.text button, .start-btn {
+  padding: 0.6rem 1.6rem; font-weight: 700; border: none; border-radius: 20px;
+  background: #fff; color: #4a3c3c; cursor: pointer;
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+}
+.text button:hover, .start-btn:hover {
+  background: #4a3c3c; color: #fff; transform: translateY(-2px);
+}
+.start-btn {
+  display: inline-block; text-decoration: none; text-align: center;
+}
+.car-image img {
+  width: 650px; max-width: 100%; height: auto; display: block;
+}
+
+/* ========== 4. Form Page (form.html) ========== */
+.form-page {
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 120px; min-height: calc(100vh - 200px);
+}
+.welcome-title {
+  font-size: 3.2rem; font-weight: 700; margin: 0 0 2rem;
+}
+.form-card {
+  background: #fff; margin-bottom: 100px; padding: 2rem;
+  border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 260px;
+}
+.form-card form {
+  display: flex; flex-direction: column; gap: 0.8rem;
+}
+.form-card label {
+  font-size: 0.8rem; font-weight: 600;
+}
+.form-card input {
+  padding: 0.45rem 0.6rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;
+}
+.slot-btn {
+  margin-top: 0.6rem; padding: 0.55rem 0.8rem; font-weight: 700;
+  border: none; border-radius: 4px; background: #2e2e2e; color: #fff; cursor: pointer;
+  transition: background 0.25s;
+}
+.slot-btn:hover { background: #4a3c3c; }
+.help-link {
+  margin-top: 0.6rem; font-size: 0.75rem; align-self: flex-start;
+  color: #4a3c3c; text-decoration: underline;
+}
+
+/* ========== 5. Slot Picker (choose-slot.html) ========== */
+.wrapper {
+  max-width: 1200px; margin: 40px auto; padding: 0 1rem; text-align: center;
+}
+#floors { margin-top: 25px; }
+.floor-card {
+  background: #fff; padding: 20px; margin-bottom: 30px; border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08); text-align: left;
+}
+.floor-header {
+  display: flex; justify-content: space-between; margin-bottom: 15px;
+}
+.rate { font-weight: 600; }
+.slot-grid {
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(60px,1fr)); gap: 10px;
+}
+.slot {
+  padding: 15px 0; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+  font-size: .9rem; transition: .15s;
+}
+.available { background: #17c964; color: #fff; }
+.taken { background: #777; color: #fff; cursor: not-allowed; }
+.selected { outline: 3px solid #ffb100; }
+.proceed {
+  margin-top: 25px; padding: 12px 28px; font-size: 1rem; font-weight: 700;
+  border: none; border-radius: 6px; background: #0a53be; color: #fff; cursor: pointer;
+  opacity: .45; transition: .2s;
+}
+.proceed.enabled { opacity: 1; }
+.proceed:hover { background: #084298; transform: translateY(-2px); }
+
+/* ========== 6. Summary Page (summary.html) ========== */
+.summary-page {
+  flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem 1rem;
+}
+.summary-card {
+  max-width: 400px; width: 100%; background: #fff; padding: 2rem 3rem;
+  margin-top: 100px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  text-align: left;
+}
+.summary-card h1 {
+  text-align: center; margin-bottom: 1.5rem; color: #0a53be;
+}
+.summary-card p { font-size: 1.1rem; margin: 8px 0; }
+.summary-card span { font-weight: 600; }
+.thankyou {
+  font-size: 1.2rem; font-weight: 700; margin-top: 1.5rem; text-align: center; color: #0a53be;
+}
+
+/* ========== 7. Footer (All Pages) ========== */
+.footer {
+  background: #2e2e2e; color: #fff; display: flex; justify-content: space-between;
+  padding: 2rem; flex-wrap: wrap; gap: 2rem; margin-top: 6rem;
+}
+.contact p {
+  display: flex; align-items: center; margin: 0.3rem 0;
+}
+.contact-icon {
+  width: 22px; height: 22px; margin-right: 8px; object-fit: contain;
+  filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 5px #ffffff);
+}
+.icon-location { width: 25px; height: 25px; }
+.icon-phone, .icon-email { width: 16px; height: 16px; }
+.about { max-width: 400px; }
+.about h3 { margin-top: 0; margin-bottom: 0.5rem; }
+.socials {
+  display: flex; gap: 1rem; align-items: center;
+}
+.social-icon {
+  width: 30px; height: 30px; object-fit: contain; transition: opacity 0.3s;
+}
+.social-icon:hover { opacity: 0.7; }
+
+/* ========== 8. Responsive (Optional) ========== */
+/* Add media queries here for mobile/tablet support */

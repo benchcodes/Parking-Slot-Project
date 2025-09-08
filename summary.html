@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Summary</title>
+  <link rel="stylesheet" href="parking.css" />
+</head>
+<body>
+    <header class="navbar">
+    <div class="logo">PARKCAR</div>
+
+    <div class="search">
+      <i class="fas fa-bars"></i>
+      <input type="text" placeholder="Search">
+    </div>
+  </header>
+
+  <!--  MAIN  -->
+    <main class="summary-page">
+    <div class="summary-card">
+        <h1>BOOKING SUMMARY</h1>
+        <p><strong>Name:</strong>  <span id="sName"></span></p>
+        <p><strong>Plate #:</strong> <span id="sPlate"></span></p>
+        <p><strong>Slot:</strong>    <span id="sSlot"></span></p>
+        <p><strong>Cost:</strong>   ₱<span id="sCost"></span></p>
+        <br>
+        <p class="thankyou">Thank you for choosing Parking ni Benjo!</p>
+    </div>
+    </main>
+
+
+  <script>
+    const data = JSON.parse(sessionStorage.getItem('booking') || '{}');
+    if (!data.slot){
+      alert('No booking found.'); window.location='form.html';
+    } else {
+      sName.textContent  = data.name;
+      sPlate.textContent = data.plate;
+      sSlot.textContent  = data.slot;
+      sCost.textContent  = data.cost;
+    }
+  </script>
+
+  <footer class="footer">
+
+    <!-- CONTACT -->
+    <div class="contact">
+      <p>
+        <img src="pictures/location.png" alt="Location" class="contact-icon icon-location">
+        National University, Manila
+      </p>
+      <p>
+        <img src="pictures/call.png" alt="Phone" class="contact-icon icon-phone">
+        (63) 972 859 2648
+      </p>
+      <p>
+        <img src="pictures/gmail.png" alt="Email" class="contact-icon icon-email">
+        numanila@gmail.com
+      </p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="about">
+      <h3>About the company</h3>
+      <p>
+        Parking ni Benjo is your trusted neighborhood solution for safe,
+        convenient, and affordable parking. Whether you're heading to work,
+        running errands, or just need a spot for a few hours, we've got you
+        covered.
+      </p>
+    </div>
+
+    <!-- SOCIALS -->
+    <div class="socials">
+      <a href="#"><img src="pictures/facebook.png"  alt="Facebook"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" alt="Instagram" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  alt="WhatsApp"  class="social-icon"></a>
+    </div>
+
+  </footer>
+</body>
+</html>

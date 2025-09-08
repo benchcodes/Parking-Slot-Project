@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking ni Benjo – Get a Slot</title>
+
+  <link rel="stylesheet" href="parking.css" />
+
+  <!-- Google font (already used) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (for back arrow icon) -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="navbar">
+    <div class="logo">PARKCAR</div>
+
+    <div class="search">
+      <i class="fas fa-bars"></i>
+      <input type="text" placeholder="Search">
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+<main class="form-page">
+
+  <h1 class="welcome-title">Welcome, Parkers!</h1>
+
+  <div class="form-card">
+    <!-- The form now has id="driverForm" and no action attribute -->
+    <form id="driverForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="plate">Plate number (last 3 digits)</label>
+      <input type="text" id="plate" maxlength="3" placeholder="123" required>
+
+      <button type="submit" class="slot-btn">Get parking slot</button>
+
+      <a href="#" class="help-link">Need help?</a>
+    </form>
+  </div>
+</main>
+
+  <!-- ===== JAVASCRIPT ===== -->
+<script>
+  // ── 1. intercept the form submit ──────────────────────────────
+  document.getElementById('driverForm').addEventListener('submit', e => {
+    e.preventDefault();                   // stop normal page refresh
+
+    // ── 2. grab the input values ────────────────────────────────
+    const name  = document.getElementById('name').value.trim();
+    const plate = document.getElementById('plate').value.trim();
+
+    // simple check
+    if (!name || !plate) { alert('Fill in all fields'); return; }
+
+    // ── 3. store in sessionStorage ──────────────────────────────
+    sessionStorage.setItem('driver', JSON.stringify({ name, plate }));
+
+    // ── 4. go to the slot‑picker page ───────────────────────────
+    window.location = 'choose-slot.html';
+  });
+</script>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+
+    <div class="contact">
+      <p>
+        <img src="pictures/location.png" alt="Location" class="contact-icon icon-location">
+        National University, Manila
+      </p>
+      <p>
+        <img src="pictures/call.png" alt="Phone" class="contact-icon icon-phone">
+        (63) 972 859 2648
+      </p>
+      <p>
+        <img src="pictures/gmail.png" alt="Email" class="contact-icon icon-email">
+        numanila@gmail.com
+      </p>
+    </div>
+
+    <div class="about">
+      <h3>About the company</h3>
+      <p>
+        Parking ni Benjo is your trusted neighborhood solution for safe,
+        convenient, and affordable parking.
+      </p>
+    </div>
+
+    <div class="socials">
+      <a href="#"><img src="pictures/facebook.png"  alt="Facebook"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" alt="Instagram" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  alt="WhatsApp"  class="social-icon"></a>
+    </div>
+
+  </footer>
+
+</body>
+</html>
