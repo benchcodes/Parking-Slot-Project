@@ -19,6 +19,3 @@ This project simulates a parking management system where users can book, view, a
 - **JavaScript (Vanilla JS)**  
 - **VS Code** (as the IDE)  
 
----
-
-## 📂 Project Structure
