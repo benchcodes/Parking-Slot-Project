@@ -1,5 +1,0 @@
-Every time you make updates, just remember this mini-cycle:
-
-git add .
-git commit -m "Your message here"
-git push
