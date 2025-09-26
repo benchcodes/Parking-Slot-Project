@@ -40,7 +40,6 @@ body {
 .text h1 {
   font-size: 4rem; font-weight: 700; margin-bottom: 1rem; color: #111;
 }
-.text h2 { /* Add if needed */ }
 .text p {
   font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 400px;
 }
@@ -166,3 +165,17 @@ body {
 
 /* ========== 8. Responsive (Optional) ========== */
 /* Add media queries here for mobile/tablet support */
+
+/* ========== 9. Responsive: Make title smaller on mobile ========== */
+@media (max-width: 600px) {
+  .text h1 {
+    font-size: 3rem;
+  }
+  .car-image img {
+    width: 100vw;
+    max-width: 600px;
+    display: block;
+    margin-left: -30px;
+    margin-right: auto;
+  }
+}
