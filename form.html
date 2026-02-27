@@ -18,56 +18,116 @@
 <body>
 
   <!-- ===== HEADER ===== -->
-  <header class="navbar">
-    <div class="logo">PARKCAR</div>
-
-    <div class="search">
-      <i class="fas fa-bars"></i>
-      <input type="text" placeholder="Search">
+  <<header class="navbar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      ParkEasy
     </div>
+
+    <nav class="nav-links">
+      <a href="#find-parking">Find Parking</a>
+      <a href="#about">About</a>
+      <a href="#help">Help</a>
+    </nav>
   </header>
 
   <!-- ===== MAIN CONTENT ===== -->
 <main class="form-page">
+  <section class="building-overview">
+    <h1>Building Overview</h1>
+    <p class="overview-subtitle">Click on any floor to reserve a parking spot</p>
 
-  <h1 class="welcome-title">Welcome, Parkers!</h1>
+    <div class="floor-list">
+      <article class="overview-floor-card">
+        <div class="floor-card-top">
+          <div class="floor-badge">2</div>
+          <div class="floor-details">
+            <h2>Second Floor</h2>
+            <p class="floor-meta">⛓ 19 / 40 available &nbsp;&nbsp; $ &nbsp;$4/hour</p>
+          </div>
+          <div class="floor-tags">
+            <span>Covered</span>
+            <span>CCTV</span>
+            <span>Security Patrol</span>
+          </div>
+        </div>
+        <div class="floor-occupancy-label"><span>Occupancy</span><span>53% Full</span></div>
+        <div class="occupancy-track"><div class="occupancy-fill green" style="width:53%"></div></div>
+      </article>
 
-  <div class="form-card">
-    <!-- The form now has id="driverForm" and no action attribute -->
-    <form id="driverForm">
-      <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Enter your name" required>
+      <article class="overview-floor-card">
+        <div class="floor-card-top">
+          <div class="floor-badge">1</div>
+          <div class="floor-details">
+            <h2>First Floor</h2>
+            <p class="floor-meta">⛓ 28 / 50 available &nbsp;&nbsp; $ &nbsp;$4/hour</p>
+          </div>
+          <div class="floor-tags">
+            <span>Covered</span>
+            <span>Wide Spaces</span>
+            <span>CCTV</span>
+          </div>
+        </div>
+        <div class="floor-occupancy-label"><span>Occupancy</span><span>44% Full</span></div>
+        <div class="occupancy-track"><div class="occupancy-fill green" style="width:44%"></div></div>
+      </article>
 
-      <label for="plate">Plate number (last 3 digits)</label>
-      <input type="text" id="plate" maxlength="3" placeholder="123" required>
+      <article class="overview-floor-card">
+        <div class="floor-card-top">
+          <div class="floor-badge">G</div>
+          <div class="floor-details">
+            <h2>Ground Floor</h2>
+            <p class="floor-meta">⛓ 12 / 40 available &nbsp;&nbsp; $ &nbsp;$5/hour</p>
+          </div>
+          <div class="floor-tags">
+            <span>Premium</span>
+            <span>Direct Elevator Access</span>
+            <span>EV Charging</span>
+          </div>
+        </div>
+        <div class="floor-occupancy-label"><span>Occupancy</span><span>70% Full</span></div>
+        <div class="occupancy-track"><div class="occupancy-fill amber" style="width:70%"></div></div>
+      </article>
 
-      <button type="submit" class="slot-btn">Get parking slot</button>
+      <article class="overview-floor-card">
+        <div class="floor-card-top">
+          <div class="floor-badge">B1</div>
+          <div class="floor-details">
+            <h2>Basement Level 1</h2>
+            <p class="floor-meta">⛓ 31 / 60 available &nbsp;&nbsp; $ &nbsp;$4/hour</p>
+          </div>
+          <div class="floor-tags">
+            <span>Covered</span>
+            <span>EV Charging</span>
+            <span>CCTV</span>
+          </div>
+        </div>
+        <div class="floor-occupancy-label"><span>Occupancy</span><span>48% Full</span></div>
+        <div class="occupancy-track"><div class="occupancy-fill green" style="width:48%"></div></div>
+      </article>
 
-      <a href="#" class="help-link">Need help?</a>
-    </form>
-  </div>
+      <article class="overview-floor-card">
+        <div class="floor-card-top">
+          <div class="floor-badge">B2</div>
+          <div class="floor-details">
+            <h2>Basement Level 2</h2>
+            <p class="floor-meta">⛓ 23 / 60 available &nbsp;&nbsp; $ &nbsp;$3/hour</p>
+          </div>
+          <div class="floor-tags">
+            <span>Covered</span>
+            <span>Well Lit</span>
+            <span>CCTV</span>
+          </div>
+        </div>
+        <div class="floor-occupancy-label"><span>Occupancy</span><span>62% Full</span></div>
+        <div class="occupancy-track"><div class="occupancy-fill amber" style="width:62%"></div></div>
+      </article>
+    </div>
+  </section>
 </main>
-
-  <!-- ===== JAVASCRIPT ===== -->
-<script>
-  // ── 1. intercept the form submit ──────────────────────────────
-  document.getElementById('driverForm').addEventListener('submit', e => {
-    e.preventDefault();                   // stop normal page refresh
-
-    // ── 2. grab the input values ────────────────────────────────
-    const name  = document.getElementById('name').value.trim();
-    const plate = document.getElementById('plate').value.trim();
-
-    // simple check
-    if (!name || !plate) { alert('Fill in all fields'); return; }
-
-    // ── 3. store in sessionStorage ──────────────────────────────
-    sessionStorage.setItem('driver', JSON.stringify({ name, plate }));
-
-    // ── 4. go to the slot‑picker page ───────────────────────────
-    window.location = 'choose-slot.html';
-  });
-</script>
 
 
   <!-- ===== FOOTER ===== -->

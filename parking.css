@@ -186,34 +186,115 @@ body {
 
 /* ========== 4. Form Page (form.html) ========== */
 .form-page {
-  display: flex; flex-direction: column; align-items: center;
-  padding-top: 120px; min-height: calc(100vh - 200px);
+  padding: 105px 1rem 40px;
+  min-height: calc(100vh - 200px);
 }
-.welcome-title {
-  font-size: 3.2rem; font-weight: 700; margin: 0 0 2rem;
+.building-overview {
+  max-width: 860px;
+  margin: 0 auto;
 }
-.form-card {
-  background: #fff; margin-bottom: 100px; padding: 2rem;
-  border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 260px;
+.building-overview h1 {
+  margin: 0;
+  text-align: center;
+  color: #1f2937;
+  font-size: 2.2rem;
+  font-weight: 700;
 }
-.form-card form {
-  display: flex; flex-direction: column; gap: 0.8rem;
+.overview-subtitle {
+  text-align: center;
+  margin: 0.45rem 0 1.4rem;
+  color: #374151;
+  font-size: 1.15rem;
 }
-.form-card label {
-  font-size: 0.8rem; font-weight: 600;
+.floor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.form-card input {
-  padding: 0.45rem 0.6rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;
+
+.overview-floor-card {
+  background: #cfdcf0;
+  border: 1px solid #a7c2ea;
+  border-radius: 9px;
+  padding: 12px 14px;
 }
-.slot-btn {
-  margin-top: 0.6rem; padding: 0.55rem 0.8rem; font-weight: 700;
-  border: none; border-radius: 4px; background: #2e2e2e; color: #fff; cursor: pointer;
-  transition: background 0.25s;
+.overview-floor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.slot-btn:hover { background: #4a3c3c; }
-.help-link {
-  margin-top: 0.6rem; font-size: 0.75rem; align-self: flex-start;
-  color: #4a3c3c; text-decoration: underline;
+.floor-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.floor-badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #1d4ed8;
+  font-size: 1.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.floor-details {
+  min-width: 210px;
+}
+.floor-details h2 {
+  margin: 0;
+  font-size: 1.9rem;
+  color: #0f172a;
+}
+.floor-meta {
+  margin: 0.2rem 0 0;
+  color: #334155;
+  font-weight: 500;
+}
+.floor-tags {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.floor-tags span {
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #9fbef4;
+  color: #1d4ed8;
+  background: #ecf3ff;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.floor-occupancy-label {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  color: #334155;
+  font-size: 0.95rem;
+}
+.occupancy-track {
+  margin-top: 4px;
+  height: 7px;
+  border-radius: 999px;
+  background: #c6d2e4;
+  overflow: hidden;
+}
+.occupancy-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+.occupancy-fill.green { background: #18a74f; }
+.occupancy-fill.amber { background: #d69a00; }
+
+.overview-floor-card:hover {
+  border-color: #81a9ff;
+  border-width: 2px;
+  cursor: pointer;
 }
 
 /* ========== 5. Slot Picker (choose-slot.html) ========== */
@@ -330,5 +411,32 @@ body {
   
   .text h1 {
     font-size: 3rem;
+  }
+
+  .building-overview h1 {
+    font-size: 1.6rem;
+  }
+
+  .overview-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .floor-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .floor-details h2 {
+    font-size: 1.3rem;
+  }
+
+  .floor-tags {
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .floor-tags span {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.6rem;
   }
 }
