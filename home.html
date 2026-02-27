@@ -19,33 +19,86 @@
     src="https://kit.fontawesome.com/a076d05399.js"
     crossorigin="anonymous"
   ></script>
-</head>
 <body>
 
   <!-- ▸ NAVBAR -------------------------------- -->
   <header class="navbar">
-    <div class="logo">PARKCAR</div>
-
-    <div class="search">
-      <i class="fas fa-bars"></i>
-      <input type="text" placeholder="Search">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      ParkEasy
     </div>
+
+    <nav class="nav-links">
+      <a href="#find-parking">Find Parking</a>
+      <a href="#about">About</a>
+      <a href="#help">Help</a>
+    </nav>
   </header>
 
   <!-- ▸ HERO --------------------------- -->
   <section class="hero">
-    <div class="text">
-      <h1>PARKING NI BENJO</h1>
-      <h2>Your Trusted Parking Solution</h2>
-      <p>
-        Parking ni Benjo offers safe, affordable, and convenient parking spaces
-        for your vehicle. Book easily and park worry-free!
-      </p>
-      <a href="form.html" class="start-btn">START</a>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Find & Reserve Parking Instantly</h1>
+        <p>Book your parking spot in advance. Pay online. Get instant confirmation.</p>
+        <a href="form.html" class="cta-button">Find Parking Now</a>
+      </div>
+      <div class="car-image">
+        <img src="pictures/car.png" alt="Car" />
+      </div>
     </div>
+  </section>
 
-    <div class="car-image">
-      <img src="pictures/car.png" alt="Car" />
+  <!-- ▸ FEATURES SECTION --------------------------- -->
+  <section class="features-section">
+    <h2 class="features-title">Why Choose ParkEasy?</h2>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h3>Prime Locations</h3>
+        <p>Parking spots in the best locations across the city</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>24/7 Availability</h3>
+        <p>Book anytime, anywhere with instant confirmation</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Secure & Safe</h3>
+        <p>All locations feature CCTV and 24/7 security</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <h3>Easy Payment</h3>
+        <p>Secure online payment with instant digital tickets</p>
+      </div>
     </div>
   </section>
 
