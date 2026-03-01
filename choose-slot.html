@@ -5,61 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parking ni Benjo • Choose Slot</title>
 
-  <!-- Your existing stylesheet -->
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="parking.css" />
 
-  <!-- Fonts / Icons (leave as‑is) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
 </head>
 <body>
 
-  <!-- ▸ NAVBAR -->
+  <!-- ▸ NAVBAR -------------------------------- -->
   <header class="navbar">
-    <div class="logo">PARKCAR</div>
-    <div class="search">
-      <i class="fas fa-bars"></i>
-      <input type="text" placeholder="Search" />
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      ParkEasy
     </div>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="form.html">Find Parking</a>
+      <a href="#about">About</a>
+      <a href="#help">Help</a>
+    </nav>
   </header>
 
-  <!-- ▸ HERO -->
+  <!-- ▸ HERO --------------------------- -->
   <section class="hero">
-    <div class="text">
-      <h1>PICK YOUR SLOT</h1>
-      <h2>Basement • 2nd • 3rd</h2>
-      <p>Select an available slot below and proceed to booking.</p>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>PICK YOUR SLOT</h1>
+        <p>Select your vehicle type, choose a floor, and pick an available parking slot below.</p>
+      </div>
+      <div class="car-image">
+        <img src="pictures/car.png" alt="Car" />
+      </div>
     </div>
-    <div class="car-image"><img src="pictures/car.png" alt="Car" /></div>
   </section>
 
   <!-- ▸ SLOT SELECTOR -->
   <main class="wrapper">
-    <section id="floors"></section>
+    <!-- Vehicle Type Selector -->
+    <div class="vehicle-selector-choose">
+      <h3>Vehicle Type</h3>
+      <div id="vehicleButtons"></div>
+    </div>
 
-    <button id="proceedBtn" class="proceed" disabled>
-    Proceed to Booking
-    </button>
+    <!-- Floor List Navigation -->
+    <aside class="floor-list">
+      <h3>Select Floor</h3>
+      <div id="floorButtons"></div>
+    </aside>
+
+    <!-- Main Slot Selection Area -->
+    <section class="main-content">
+      <!-- Customer Details Card -->
+      <div class="customer-details-card">
+        <h3>Customer Details</h3>
+        <div class="customer-inputs">
+          <div class="customer-group">
+            <label for="customerName">Full Name</label>
+            <input type="text" id="customerName" placeholder="Enter your full name" required>
+          </div>
+          <div class="customer-group">
+            <label for="licensePlate">License Plate</label>
+            <input type="text" id="licensePlate" placeholder="e.g., ABC-1234" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date & Time Selection -->
+      <div class="datetime-section">
+        <h3>Parking Duration</h3>
+        <div class="datetime-inputs">
+          <div class="datetime-group">
+            <label for="startDateTime">Start Date & Time</label>
+            <input type="datetime-local" id="startDateTime" required>
+          </div>
+          <div class="datetime-group">
+            <label for="endDateTime">End Date & Time</label>
+            <input type="datetime-local" id="endDateTime" required>
+          </div>
+        </div>
+        <div id="durationDisplay" class="duration-display"></div>
+      </div>
+
+      <div id="floors"></div>
+      
+      <button id="proceedBtn" class="proceed" disabled>
+        Proceed to Booking
+      </button>
+    </section>
   </main>
 
-  <!-- ▸ FOOTER (unchanged) -->
+  <!-- ▸ FOOTER ---------------------------- -->
   <footer class="footer">
+
+    <!-- CONTACT -->
     <div class="contact">
-      <p><img src="pictures/location.png" class="contact-icon">National University, Manila</p>
-      <p><img src="pictures/call.png"     class="contact-icon">(63) 972 859 2648</p>
-      <p><img src="pictures/gmail.png"    class="contact-icon">numanila@gmail.com</p>
+      <p>
+        <img src="pictures/location.png" alt="Location" class="contact-icon icon-location">
+        National University, Manila
+      </p>
+      <p>
+        <img src="pictures/call.png" alt="Phone" class="contact-icon icon-phone">
+        (63) 972 859 2648
+      </p>
+      <p>
+        <img src="pictures/gmail.png" alt="Email" class="contact-icon icon-email">
+        numanila@gmail.com
+      </p>
     </div>
+
+    <!-- ABOUT -->
     <div class="about">
       <h3>About the company</h3>
-      <p>Parking ni Benjo offers safe, convenient, and affordable parking.</p>
+      <p>
+        Parking ni Benjo is your trusted neighborhood solution for safe,
+        convenient, and affordable parking. Whether you're heading to work,
+        running errands, or just need a spot for a few hours, we've got you
+        covered.
+      </p>
     </div>
+
+    <!-- SOCIALS -->
     <div class="socials">
-      <a href="#"><img src="pictures/facebook.png"  class="social-icon"></a>
-      <a href="#"><img src="pictures/instagram.png" class="social-icon"></a>
-      <a href="#"><img src="pictures/whatsapp.png"  class="social-icon"></a>
+      <a href="#"><img src="pictures/facebook.png"  alt="Facebook"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" alt="Instagram" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  alt="WhatsApp"  class="social-icon"></a>
     </div>
+
   </footer>
 
   <!-- JavaScript -->

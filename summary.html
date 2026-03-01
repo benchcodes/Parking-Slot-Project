@@ -22,8 +22,12 @@
         <h1>BOOKING SUMMARY</h1>
         <p><strong>Name:</strong>  <span id="sName"></span></p>
         <p><strong>Plate #:</strong> <span id="sPlate"></span></p>
+        <p><strong>Vehicle Type:</strong> <span id="sVehicle"></span></p>
         <p><strong>Slot:</strong>    <span id="sSlot"></span></p>
-        <p><strong>Cost:</strong>   ₱<span id="sCost"></span></p>
+        <p><strong>Start:</strong> <span id="sStart"></span></p>
+        <p><strong>End:</strong> <span id="sEnd"></span></p>
+        <p><strong>Duration:</strong> <span id="sDuration"></span></p>
+        <p><strong>Total Cost:</strong>   ₱<span id="sCost"></span></p>
         <br>
         <p class="thankyou">Thank you for choosing Parking ni Benjo!</p>
     </div>
@@ -37,7 +41,27 @@
     } else {
       sName.textContent  = data.name;
       sPlate.textContent = data.plate;
+      sVehicle.textContent = data.vehicleType;
       sSlot.textContent  = data.slot;
+      
+      // Format datetime for display
+      if (data.startDateTime) {
+        const startDate = new Date(data.startDateTime);
+        sStart.textContent = startDate.toLocaleString('en-US', { 
+          month: 'short', day: 'numeric', year: 'numeric', 
+          hour: 'numeric', minute: '2-digit', hour12: true 
+        });
+      }
+      
+      if (data.endDateTime) {
+        const endDate = new Date(data.endDateTime);
+        sEnd.textContent = endDate.toLocaleString('en-US', { 
+          month: 'short', day: 'numeric', year: 'numeric', 
+          hour: 'numeric', minute: '2-digit', hour12: true 
+        });
+      }
+      
+      sDuration.textContent = data.duration ? `${data.duration} hour${data.duration > 1 ? 's' : ''}` : '';
       sCost.textContent  = data.cost;
     }
   </script>

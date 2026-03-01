@@ -165,24 +165,7 @@ body {
   margin: 0;
 }
 
-/* ========== OLD HERO STYLES (for other pages) ========== */
-.text h1 {
-  font-size: 4rem; font-weight: 700; margin-bottom: 1rem; color: #111;
-}
-.text p {
-  font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 400px;
-}
-.text button, .start-btn {
-  padding: 0.6rem 1.6rem; font-weight: 700; border: none; border-radius: 20px;
-  background: #fff; color: #4a3c3c; cursor: pointer;
-  transition: background 0.25s, color 0.25s, transform 0.25s;
-}
-.text button:hover, .start-btn:hover {
-  background: #4a3c3c; color: #fff; transform: translateY(-2px);
-}
-.start-btn {
-  display: inline-block; text-decoration: none; text-align: center;
-}
+/* ========== OLD HERO STYLES - REMOVED (now using hero-content structure) ========== */
 
 /* ========== 4. Form Page (form.html) ========== */
 .form-page {
@@ -205,6 +188,54 @@ body {
   margin: 0.45rem 0 1.4rem;
   color: #374151;
   font-size: 1.15rem;
+}
+.vehicle-selector {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f0f4f8;
+  border-radius: 9px;
+  text-align: center;
+}
+.vehicle-selector label {
+  display: block;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+.vehicle-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.vehicle-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #fff;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  min-width: 100px;
+}
+.vehicle-btn:hover {
+  border-color: #0a53be;
+  background: #eff6ff;
+  transform: translateY(-2px);
+}
+.vehicle-btn.active {
+  background: #0a53be;
+  color: #fff;
+  border-color: #0a53be;
+}
+.vehicle-btn span:first-child {
+  font-size: 2rem;
 }
 .floor-list {
   display: flex;
@@ -299,9 +330,92 @@ body {
 
 /* ========== 5. Slot Picker (choose-slot.html) ========== */
 .wrapper {
-  max-width: 1200px; margin: 40px auto; padding: 0 1rem; text-align: center;
+  max-width: 1400px; margin: 40px auto; padding: 0 1rem; display: flex; gap: 30px;
 }
-#floors { margin-top: 25px; }
+.vehicle-selector-choose {
+  flex: 0 0 250px; background: #f3f4f6; padding: 20px; border-radius: 8px; height: fit-content;
+}
+.vehicle-selector-choose h3 {
+  margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; color: #1f2937;
+}
+#vehicleButtons {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.vehicle-btn {
+  padding: 12px; background: #fff; border: 2px solid #d1d5db; border-radius: 6px;
+  cursor: pointer; text-align: center; transition: all 0.2s;
+  font-weight: 500; color: #374151; display: flex; align-items: center; gap: 8px;
+}
+.vehicle-btn:hover {
+  border-color: #0a53be; background: #eff6ff;
+}
+.vehicle-btn.active {
+  border-color: #0a53be; background: #0a53be; color: #fff;
+}
+.vehicle-btn span:first-child {
+  font-size: 1.5rem;
+}
+.floor-list {
+  flex: 0 0 250px; background: #f3f4f6; padding: 20px; border-radius: 8px; height: fit-content;
+}
+.floor-list h3 {
+  margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; color: #1f2937;
+}
+#floorButtons {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.floor-btn {
+  padding: 12px; background: #fff; border: 2px solid #d1d5db; border-radius: 6px;
+  cursor: pointer; text-align: left; transition: all 0.2s;
+  font-weight: 500; color: #374151;
+}
+.floor-btn:hover {
+  border-color: #0a53be; background: #eff6ff;
+}
+.floor-btn.active {
+  border-color: #0a53be; background: #0a53be; color: #fff;
+}
+.floor-name {
+  font-weight: 600; margin-bottom: 4px;
+}
+.floor-rate {
+  font-size: 0.85rem; opacity: 0.8;
+}
+.main-content {
+  flex: 1;
+}
+.datetime-section {
+  background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+.datetime-section h3 {
+  margin-top: 0; margin-bottom: 15px; font-size: 1.1rem; color: #1f2937;
+}
+.datetime-inputs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;
+}
+.datetime-group {
+  display: flex; flex-direction: column;
+}
+.datetime-group label {
+  font-weight: 600; margin-bottom: 8px; color: #374151; font-size: 0.95rem;
+}
+.datetime-group input {
+  padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 6px;
+  font-size: 0.95rem; font-family: 'Montserrat', sans-serif;
+  transition: border-color 0.2s;
+}
+.datetime-group input:focus {
+  outline: none; border-color: #0a53be;
+}
+.duration-display {
+  padding: 12px; background: #eff6ff; border-radius: 6px;
+  font-weight: 600; color: #0a53be; text-align: center; display: none;
+}
+.duration-display.show {
+  display: block;
+}
+#floors { margin-top: 0; }
 .floor-card {
   background: #fff; padding: 20px; margin-bottom: 30px; border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,.08); text-align: left;
@@ -333,14 +447,14 @@ body {
   flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem 1rem;
 }
 .summary-card {
-  max-width: 400px; width: 100%; background: #fff; padding: 2rem 3rem;
+  max-width: 500px; width: 100%; background: #fff; padding: 2rem 2.5rem;
   margin-top: 100px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
   text-align: left;
 }
 .summary-card h1 {
   text-align: center; margin-bottom: 1.5rem; color: #0a53be;
 }
-.summary-card p { font-size: 1.1rem; margin: 8px 0; }
+.summary-card p { font-size: 0.95rem; margin: 8px 0; }
 .summary-card span { font-weight: 600; }
 .thankyou {
   font-size: 1.2rem; font-weight: 700; margin-top: 1.5rem; text-align: center; color: #0a53be;
@@ -408,10 +522,6 @@ body {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
-  .text h1 {
-    font-size: 3rem;
-  }
 
   .building-overview h1 {
     font-size: 1.6rem;
@@ -438,5 +548,59 @@ body {
   .floor-tags span {
     font-size: 0.78rem;
     padding: 0.3rem 0.6rem;
+  }
+
+  /* Responsive for slot picker */
+  .wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .vehicle-selector-choose {
+    flex: 0 0 auto;
+  }
+
+  .floor-list {
+    flex: 0 0 auto;
+  }
+
+  #vehicleButtons {
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  .vehicle-btn {
+    flex: 0 0 auto;
+    min-width: 100px;
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  #floorButtons {
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  .floor-btn {
+    flex: 0 0 auto;
+    min-width: 120px;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .datetime-inputs {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .datetime-group input {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+  }
+
+  .slot-grid {
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   }
 }
