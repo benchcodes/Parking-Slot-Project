@@ -29,6 +29,22 @@ const proceedBtn    = document.getElementById('proceedBtn');
 const startDateTime = document.getElementById('startDateTime');
 const endDateTime   = document.getElementById('endDateTime');
 const durationDisplay = document.getElementById('durationDisplay');
+paymentOptions.forEach(option => {
+  option.addEventListener('change', (e) => {
+    // Update summary text
+    document.getElementById('sPayment').textContent = paymentLabels[e.target.value];
+    
+    // Toggle between forms
+    if (e.target.value === 'card') {
+      cardForm.style.display = 'block';    // Show card form
+      gcashForm.style.display = 'none';    // Hide GCash form
+    } else if (e.target.value === 'gcash') {
+      cardForm.style.display = 'none';     // Hide card form
+      gcashForm.style.display = 'block';   // Show GCash form
+    }
+  });
+});const customerName  = document.getElementById('customerName');
+const licensePlate  = document.getElementById('licensePlate');
 
 let selected        = null; // will hold { slot, cost, btn }
 let currentFloor    = 0;    // track current floor
@@ -251,17 +267,17 @@ proceedBtn.addEventListener('click', () => {
     return;
   }
 
-  const driver = JSON.parse(sessionStorage.getItem('driver') || '{}');
+  const name = customerName.value.trim();
+  const plate = licensePlate.value.trim();
 
-  if (!driver.name || !driver.plate) {
-    alert('Driver details missing. Please fill the form first.');
-    window.location = 'form.html';
+  if (!name || !plate) {
+    alert('Please fill in your full name and license plate.');
     return;
   }
 
   const booking = {
-    name : driver.name,
-    plate: driver.plate,
+    name : name,
+    plate: plate,
     vehicleType: vehicleType,
     slot : selected.slot.id,
     startDateTime: startDateTime.value,

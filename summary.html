@@ -18,6 +18,78 @@
 
   <!--  MAIN  -->
     <main class="summary-page">
+    <!-- Payment Method Section -->
+    <div class="payment-card">
+        <h2>Payment Method</h2>
+        <p class="payment-subtitle">Select your preferred payment method for this online reservation</p>
+        <div class="payment-options">
+            <label class="payment-option">
+                <input type="radio" name="payment" value="card" checked>
+                <div class="payment-option-content">
+                    <span class="payment-icon">💳</span>
+                    <span class="payment-label">Credit/Debit Card</span>
+                </div>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment" value="gcash">
+                <div class="payment-option-content">
+                    <span class="payment-icon">📱</span>
+                    <span class="payment-label">GCash</span>
+                </div>
+            </label>
+        </div>
+
+        <!-- Credit/Debit Card Form -->
+        <div id="cardForm" class="payment-form">
+            <div class="payment-input-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+            </div>
+            <div class="payment-row">
+                <div class="payment-input-group">
+                    <label for="cardExpiry">Expiry Date</label>
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="payment-input-group">
+                    <label for="cardCVV">CVV</label>
+                    <input type="text" id="cardCVV" placeholder="123" maxlength="3" required>
+                </div>
+            </div>
+            <div class="payment-input-group">
+                <label for="cardName">Cardholder Name</label>
+                <input type="text" id="cardName" placeholder="JOHN SMITH" required>
+            </div>
+        </div>
+
+        <!-- GCash QR Code -->
+        <div id="gcashForm" class="payment-form" style="display: none;">
+            <div class="gcash-qr-container">
+                <p class="gcash-instruction">Scan the QR code below using your GCash app to complete payment</p>
+                <div class="qr-code-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=gcash://pay?amount=" id="gcashQR" alt="GCash QR Code">
+                </div>
+                <p class="gcash-amount">Amount: ₱<span id="gcashAmount"></span></p>
+                <p class="gcash-note">⚠️ After payment, upload your receipt below</p>
+            </div>
+
+            <!-- Receipt Upload Section -->
+            <div class="receipt-upload-section">
+                <label for="receiptUpload" class="receipt-label">
+                    📸 Upload Payment Receipt/Screenshot
+                </label>
+                <input type="file" id="receiptUpload" accept="image/*" class="receipt-input">
+                <div id="receiptPreview" class="receipt-preview" style="display: none;">
+                    <p class="preview-label">Receipt Preview:</p>
+                    <img id="previewImage" src="" alt="Receipt preview">
+                    <button type="button" id="removeReceipt" class="remove-receipt-btn">✕ Remove</button>
+                </div>
+                <p class="upload-hint">Accepted formats: JPG, PNG, JPEG (Max 5MB)</p>
+            </div>
+        </div>
+
+        <button id="confirmPaymentBtn" class="confirm-payment-btn">Confirm Payment</button>
+    </div>
+
     <div class="summary-card">
         <h1>BOOKING SUMMARY</h1>
         <p><strong>Name:</strong>  <span id="sName"></span></p>
@@ -27,6 +99,7 @@
         <p><strong>Start:</strong> <span id="sStart"></span></p>
         <p><strong>End:</strong> <span id="sEnd"></span></p>
         <p><strong>Duration:</strong> <span id="sDuration"></span></p>
+        <p><strong>Payment Method:</strong> <span id="sPayment">Credit/Debit Card</span></p>
         <p><strong>Total Cost:</strong>   ₱<span id="sCost"></span></p>
         <br>
         <p class="thankyou">Thank you for choosing Parking ni Benjo!</p>
@@ -64,6 +137,148 @@
       sDuration.textContent = data.duration ? `${data.duration} hour${data.duration > 1 ? 's' : ''}` : '';
       sCost.textContent  = data.cost;
     }
+
+    // Handle payment method selection
+    const paymentOptions = document.querySelectorAll('input[name="payment"]');
+    const paymentLabels = {
+      'card': 'Credit/Debit Card',
+      'gcash': 'GCash'
+    };
+    const cardForm = document.getElementById('cardForm');
+    const gcashForm = document.getElementById('gcashForm');
+    const gcashAmount = document.getElementById('gcashAmount');
+    const gcashQR = document.getElementById('gcashQR');
+    const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+
+    // Set GCash amount
+    if (data.cost) {
+      gcashAmount.textContent = data.cost;
+      gcashQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=gcash://pay?amount=${data.cost}`;
+    }
+
+    paymentOptions.forEach(option => {
+      option.addEventListener('change', (e) => {
+        document.getElementById('sPayment').textContent = paymentLabels[e.target.value];
+        
+        // Toggle between card form and GCash QR
+        if (e.target.value === 'card') {
+          cardForm.style.display = 'block';
+          gcashForm.style.display = 'none';
+        } else if (e.target.value === 'gcash') {
+          cardForm.style.display = 'none';
+          gcashForm.style.display = 'block';
+        }
+      });
+    });
+
+    // Handle confirm payment button
+    confirmPaymentBtn.addEventListener('click', () => {
+      const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+      
+      if (selectedPayment === 'card') {
+        const cardNumber = document.getElementById('cardNumber').value.trim();
+        const cardExpiry = document.getElementById('cardExpiry').value.trim();
+        const cardCVV = document.getElementById('cardCVV').value.trim();
+        const cardName = document.getElementById('cardName').value.trim();
+        
+        if (!cardNumber || !cardExpiry || !cardCVV || !cardName) {
+          alert('Please fill in all card details.');
+          return;
+        }
+        
+        if (cardNumber.replace(/\s/g, '').length < 13) {
+          alert('Please enter a valid card number.');
+          return;
+        }
+        
+        if (cardCVV.length < 3) {
+          alert('Please enter a valid CVV.');
+          return;
+        }
+        
+        alert('Payment confirmed! Your booking has been completed.');
+      } else if (selectedPayment === 'gcash') {
+        const receiptFile = document.getElementById('receiptUpload').files[0];
+        
+        if (!receiptFile) {
+          alert('Please upload your GCash payment receipt/screenshot.');
+          return;
+        }
+        
+        // Check file size (5MB max)
+        if (receiptFile.size > 5 * 1024 * 1024) {
+          alert('Receipt file size must be less than 5MB.');
+          return;
+        }
+        
+        alert('Payment receipt uploaded successfully! Your booking is pending verification. We will confirm your booking shortly.');
+      }
+      
+      // Could redirect to a confirmation page or home
+      // window.location = 'index.html';
+    });
+
+    // Format card number with spaces
+    document.getElementById('cardNumber').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\s/g, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formattedValue;
+    });
+
+    // Format expiry date
+    document.getElementById('cardExpiry').addEventListener('input', (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+      }
+      e.target.value = value;
+    });
+
+    // Only allow numbers in CVV
+    document.getElementById('cardCVV').addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+
+    // Handle receipt upload and preview
+    const receiptUpload = document.getElementById('receiptUpload');
+    const receiptPreview = document.getElementById('receiptPreview');
+    const previewImage = document.getElementById('previewImage');
+    const removeReceiptBtn = document.getElementById('removeReceipt');
+
+    receiptUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      
+      if (file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          alert('Please upload an image file (JPG, PNG, JPEG).');
+          receiptUpload.value = '';
+          return;
+        }
+        
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('File size must be less than 5MB.');
+          receiptUpload.value = '';
+          return;
+        }
+        
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          previewImage.src = e.target.result;
+          receiptPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Remove receipt
+    removeReceiptBtn.addEventListener('click', () => {
+      receiptUpload.value = '';
+      receiptPreview.style.display = 'none';
+      previewImage.src = '';
+    });
   </script>
 
   <footer class="footer">

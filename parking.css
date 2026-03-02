@@ -444,11 +444,254 @@ body {
 
 /* ========== 6. Summary Page (summary.html) ========== */
 .summary-page {
-  flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem 1rem;
+  flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem 1rem;
 }
+
+/* Payment Method Card */
+.payment-card {
+  max-width: 500px; width: 100%; background: #fff; padding: 2rem 2.5rem;
+  margin-top: 100px; margin-bottom: 1.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+.payment-card h2 {
+  text-align: center; margin-bottom: 0.5rem; color: #0a53be; font-size: 1.5rem;
+}
+.payment-subtitle {
+  text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;
+}
+.payment-options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.payment-option {
+  cursor: pointer; border: 2px solid #ddd; border-radius: 8px; padding: 1rem;
+  transition: all 0.3s ease; display: block; position: relative;
+}
+.payment-option:hover {
+  border-color: #0a53be; box-shadow: 0 2px 8px rgba(10, 83, 190, 0.15);
+}
+.payment-option:has(input[type="radio"]:checked) {
+  border-color: #0a53be; background-color: #f0f7ff;
+}
+.payment-option input[type="radio"] {
+  position: absolute; opacity: 0;
+}
+.payment-option input[type="radio"]:checked + .payment-option-content {
+  color: #0a53be;
+}
+.payment-option input[type="radio"]:checked + .payment-option-content::before {
+  content: "✓"; position: absolute; top: -0.5rem; right: -0.5rem;
+  background: #0a53be; color: white; border-radius: 50%; width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center; font-weight: bold;
+}
+.payment-option input[type="radio"]:checked + .payment-option-content {
+  font-weight: 600;
+}
+.payment-option-content {
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem; position: relative;
+}
+.payment-icon {
+  font-size: 2rem;
+}
+.payment-label {
+  font-size: 0.9rem; text-align: center;
+}
+
+/* Payment Forms */
+.payment-form {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.payment-input-group {
+  margin-bottom: 1rem;
+}
+
+.payment-input-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.payment-input-group input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.payment-input-group input:focus {
+  outline: none;
+  border-color: #0a53be;
+}
+
+.payment-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* GCash QR Code Styles */
+.gcash-qr-container {
+  text-align: center;
+}
+
+.gcash-instruction {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.qr-code-box {
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.qr-code-box img {
+  display: block;
+  width: 200px;
+  height: 200px;
+}
+
+.gcash-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0a53be;
+  margin: 0.5rem 0;
+}
+
+.gcash-note {
+  font-size: 0.85rem;
+  color: #d97706;
+  margin-top: 0.8rem;
+}
+
+/* Receipt Upload Section */
+.receipt-upload-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.receipt-label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.receipt-input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 2px dashed #0a53be;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: #f8faff;
+  transition: all 0.3s ease;
+}
+
+.receipt-input:hover {
+  background: #e8f1ff;
+  border-color: #084298;
+}
+
+.receipt-input::file-selector-button {
+  background: #0a53be;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.8rem;
+  font-weight: 600;
+}
+
+.receipt-input::file-selector-button:hover {
+  background: #084298;
+}
+
+.upload-hint {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.receipt-preview {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.preview-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.8rem;
+}
+
+.receipt-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.remove-receipt-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.remove-receipt-btn:hover {
+  background: #b91c1c;
+}
+
+/* Confirm Payment Button */
+.confirm-payment-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #0a53be;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.confirm-payment-btn:hover {
+  background: #084298;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 83, 190, 0.3);
+}
+
+.confirm-payment-btn:active {
+  transform: translateY(0);
+}
+
 .summary-card {
   max-width: 500px; width: 100%; background: #fff; padding: 2rem 2.5rem;
-  margin-top: 100px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.12);
   text-align: left;
 }
 .summary-card h1 {
@@ -602,5 +845,29 @@ body {
 
   .slot-grid {
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  }
+
+  .payment-card {
+    margin-top: 80px;
+    padding: 1.5rem;
+  }
+
+  .payment-options {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .payment-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .qr-code-box img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .receipt-preview img {
+    max-height: 200px;
   }
 }
