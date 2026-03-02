@@ -3,17 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Booking Summary</title>
+  <title>Parking BM • Booking Summary</title>
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="parking.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
-    <header class="navbar">
-    <div class="logo">PARKCAR</div>
-
-    <div class="search">
-      <i class="fas fa-bars"></i>
-      <input type="text" placeholder="Search">
+  <!-- ▸ NAVBAR -------------------------------- -->
+  <header class="navbar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      Parking BM
     </div>
+
+    <nav class="nav-links">
+      <a href="#find-parking">Find Parking</a>
+      <a href="#about">About</a>
+      <a href="#help">Help</a>
+    </nav>
   </header>
 
   <!--  MAIN  -->
@@ -102,7 +129,7 @@
         <p><strong>Payment Method:</strong> <span id="sPayment">Credit/Debit Card</span></p>
         <p><strong>Total Cost:</strong>   ₱<span id="sCost"></span></p>
         <br>
-        <p class="thankyou">Thank you for choosing Parking ni Benjo!</p>
+        <p class="thankyou">Thank you for choosing Parking BM!</p>
     </div>
     </main>
 
@@ -172,7 +199,7 @@
     });
 
     // Handle confirm payment button
-    confirmPaymentBtn.addEventListener('click', () => {
+    confirmPaymentBtn.addEventListener('click', async () => {
       const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
       
       if (selectedPayment === 'card') {
@@ -196,7 +223,14 @@
           return;
         }
         
-        alert('Payment confirmed! Your booking has been completed.');
+        // Save to Firebase
+        const success = await saveBookedSlotToFirebase(data.slot, data);
+        if (success) {
+          alert('Payment confirmed! Your booking has been completed.');
+          // window.location = 'index.html';
+        } else {
+          alert('Error saving booking. Please try again.');
+        }
       } else if (selectedPayment === 'gcash') {
         const receiptFile = document.getElementById('receiptUpload').files[0];
         
@@ -211,7 +245,14 @@
           return;
         }
         
-        alert('Payment receipt uploaded successfully! Your booking is pending verification. We will confirm your booking shortly.');
+        // Save to Firebase
+        const success = await saveBookedSlotToFirebase(data.slot, data);
+        if (success) {
+          alert('Payment receipt uploaded successfully! Your booking is pending verification. We will confirm your booking shortly.');
+          // window.location = 'index.html';
+        } else {
+          alert('Error saving booking. Please try again.');
+        }
       }
       
       // Could redirect to a confirmation page or home
@@ -303,7 +344,7 @@
     <div class="about">
       <h3>About the company</h3>
       <p>
-        Parking ni Benjo is your trusted neighborhood solution for safe,
+        Parking BM is your trusted neighborhood solution for safe,
         convenient, and affordable parking. Whether you're heading to work,
         running errands, or just need a spot for a few hours, we've got you
         covered.

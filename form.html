@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parking ni Benjo – Get a Slot</title>
+  <title>Parking BM – Get a Slot</title>
 
   <link rel="stylesheet" href="parking.css" />
 
@@ -14,17 +14,22 @@
 
   <!-- Font Awesome (for back arrow icon) -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
 
   <!-- ===== HEADER ===== -->
-  <<header class="navbar">
+  <header class="navbar">
     <div class="logo">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
         <polygon points="12 15 17 21 7 21 12 15"/>
       </svg>
-      ParkEasy
+      Parking BM
     </div>
 
     <nav class="nav-links">
@@ -65,7 +70,7 @@
           <div class="floor-badge">2</div>
           <div class="floor-details">
             <h2>Second Floor</h2>
-            <p class="floor-meta">⛓ 19 / 40 available &nbsp;&nbsp; $ &nbsp;$4/hour</p>
+            <p class="floor-meta">⛓ 19 / 40 available &nbsp;&nbsp;</p>
           </div>
           <div class="floor-tags">
             <span>Covered</span>
@@ -82,7 +87,7 @@
           <div class="floor-badge">1</div>
           <div class="floor-details">
             <h2>First Floor</h2>
-            <p class="floor-meta">⛓ 28 / 50 available &nbsp;&nbsp; $ &nbsp;$4/hour</p>
+            <p class="floor-meta">⛓ 28 / 50 available &nbsp;&nbsp;</p>
           </div>
           <div class="floor-tags">
             <span>Covered</span>
@@ -99,7 +104,7 @@
           <div class="floor-badge">G</div>
           <div class="floor-details">
             <h2>Ground Floor</h2>
-            <p class="floor-meta">⛓ 12 / 40 available &nbsp;&nbsp; $ &nbsp;$5/hour</p>
+            <p class="floor-meta">⛓ 12 / 40 available &nbsp;&nbsp;</p>
           </div>
           <div class="floor-tags">
             <span>Premium</span>
@@ -116,7 +121,7 @@
           <div class="floor-badge">B1</div>
           <div class="floor-details">
             <h2>Basement Level 1</h2>
-            <p class="floor-meta">⛓ 31 / 60 available &nbsp;&nbsp; $ &nbsp;$4/hour</p>
+            <p class="floor-meta">⛓ 31 / 60 available &nbsp;&nbsp;</p>
           </div>
           <div class="floor-tags">
             <span>Covered</span>
@@ -133,7 +138,7 @@
           <div class="floor-badge">B2</div>
           <div class="floor-details">
             <h2>Basement Level 2</h2>
-            <p class="floor-meta">⛓ 23 / 60 available &nbsp;&nbsp; $ &nbsp;$3/hour</p>
+            <p class="floor-meta">⛓ 23 / 60 available &nbsp;&nbsp;</p>
           </div>
           <div class="floor-tags">
             <span>Covered</span>
@@ -170,7 +175,7 @@
     <div class="about">
       <h3>About the company</h3>
       <p>
-        Parking ni Benjo is your trusted neighborhood solution for safe,
+        Parking BM is your trusted neighborhood solution for safe,
         convenient, and affordable parking.
       </p>
     </div>
@@ -184,6 +189,48 @@
   </footer>
 
   <script>
+    const floorPrefixes = ['2F', '1F', 'G', 'B1', 'B2'];
+    const floorTotals = [40, 50, 40, 60, 60];
+
+    async function updateFloorOccupancy() {
+      const bookedSlots = await getBookedSlotsFromFirebase();
+      const bookedSet = new Set(bookedSlots);
+      const floorCards = document.querySelectorAll('.overview-floor-card');
+
+      floorCards.forEach((card, index) => {
+        const prefix = floorPrefixes[index];
+        const total = floorTotals[index];
+
+        let booked = 0;
+        for (let slotNumber = 1; slotNumber <= total; slotNumber++) {
+          if (bookedSet.has(`${prefix}-${slotNumber}`)) {
+            booked++;
+          }
+        }
+
+        const available = total - booked;
+        const percentFull = Math.round((booked / total) * 100);
+
+        const meta = card.querySelector('.floor-meta');
+        const occupancyText = card.querySelector('.floor-occupancy-label span:last-child');
+        const occupancyFill = card.querySelector('.occupancy-fill');
+
+        meta.innerHTML = `⛓ ${available} / ${total} available`;
+        occupancyText.textContent = `${percentFull}% Full`;
+        occupancyFill.style.width = `${percentFull}%`;
+        occupancyFill.classList.toggle('green', percentFull < 60);
+        occupancyFill.classList.toggle('amber', percentFull >= 60);
+      });
+    }
+
+    // Initial load
+    updateFloorOccupancy();
+
+    // Real-time updates when slots are booked
+    db.collection('bookedSlots').onSnapshot(() => {
+      updateFloorOccupancy();
+    });
+
     let selectedVehicleType = 'car'; // default to car
 
     // Handle vehicle type selection

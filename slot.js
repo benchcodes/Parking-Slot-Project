@@ -10,12 +10,38 @@ const floors = [
   { name: 'Basement Level 2', rates: { car: 60, motorcycle: 50, bicycle: 20 }, prefix: 'B2' }
 ];
 
+// Booked slots will be loaded from Firebase
+let bookedSlots = new Set();
+
+// Load booked slots from Firebase
+async function loadBookedSlots() {
+  const slots = await getBookedSlotsFromFirebase();
+  bookedSlots = new Set(slots);
+  
+  // Update floor slots availability
+  floors.forEach((f) => {
+    f.slots.forEach(slot => {
+      slot.available = !bookedSlots.has(slot.id);
+    });
+  });
+  
+  // Re-render current floor
+  renderFloor(currentFloor);
+}
+
+// Real-time listener for slot changes
+if (typeof db !== 'undefined') {
+  db.collection('bookedSlots').onSnapshot(() => {
+    loadBookedSlots();
+  });
+}
+
 /* create slots per floor (matching form.html capacity) */
 const slotCounts = [40, 50, 40, 60, 60]; // slots for each floor
 floors.forEach((f, index) => {
   f.slots = Array.from({ length: slotCounts[index] }, (_, i) => ({
     id: `${f.prefix}-${i + 1}`,
-    available: true
+    available: true  // Will be updated after Firebase loads
   }));
 });
 
@@ -29,21 +55,7 @@ const proceedBtn    = document.getElementById('proceedBtn');
 const startDateTime = document.getElementById('startDateTime');
 const endDateTime   = document.getElementById('endDateTime');
 const durationDisplay = document.getElementById('durationDisplay');
-paymentOptions.forEach(option => {
-  option.addEventListener('change', (e) => {
-    // Update summary text
-    document.getElementById('sPayment').textContent = paymentLabels[e.target.value];
-    
-    // Toggle between forms
-    if (e.target.value === 'card') {
-      cardForm.style.display = 'block';    // Show card form
-      gcashForm.style.display = 'none';    // Hide GCash form
-    } else if (e.target.value === 'gcash') {
-      cardForm.style.display = 'none';     // Hide card form
-      gcashForm.style.display = 'block';   // Show GCash form
-    }
-  });
-});const customerName  = document.getElementById('customerName');
+const customerName  = document.getElementById('customerName');
 const licensePlate  = document.getElementById('licensePlate');
 
 let selected        = null; // will hold { slot, cost, btn }
@@ -235,7 +247,12 @@ if (selectedFloor) {
   });
 }
 
-renderFloor(floorIndex);
+// Load booked slots and render
+if (typeof getBookedSlotsFromFirebase !== 'undefined') {
+  loadBookedSlots();
+} else {
+  renderFloor(floorIndex);
+}
 
 /* --------------------------------------------------
    CHOOSE A SLOT
