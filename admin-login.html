@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking BM • Admin Login</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="parking.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #54575c 0%, #405282 100%);
+      padding: 1rem;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-header h1 {
+      margin: 0 0 0.5rem;
+      color: #0a53be;
+      font-size: 1.8rem;
+    }
+
+    .login-header p {
+      margin: 0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      padding: 0.8rem;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #0a53be;
+      box-shadow: 0 0 0 3px rgba(10, 83, 190, 0.15);
+    }
+
+    .login-btn {
+      padding: 0.9rem;
+      background: #0a53be;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover {
+      background: #084298;
+    }
+
+    .login-btn:active {
+      transform: translateY(1px);
+    }
+
+    .error-message {
+      display: none;
+      padding: 0.8rem;
+      background: #fee2e2;
+      color: #dc2626;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .back-link a {
+      color: #0a53be;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .back-link a:hover {
+      opacity: 0.8;
+    }
+
+    .icon {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <div class="icon">🔐</div>
+      <h1>Admin Login</h1>
+      <p>Enter password to access admin dashboard</p>
+    </div>
+
+    <div class="login-form">
+      <div class="error-message" id="errorMessage"></div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          placeholder="Enter admin password"
+          onkeypress="handleKeyPress(event)"
+        >
+      </div>
+
+      <button class="login-btn" onclick="validatePassword()">Login</button>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PASSWORD = 'Admin123';
+
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMessage');
+
+      if (password === ADMIN_PASSWORD) {
+        // Store authentication in sessionStorage
+        sessionStorage.setItem('adminAuth', 'true');
+        // Redirect to admin dashboard
+        window.location = 'admin.html';
+      } else {
+        errorMsg.textContent = 'Invalid password. Please try again.';
+        errorMsg.classList.add('show');
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        validatePassword();
+      }
+    }
+
+    // Focus on password input on load
+    document.getElementById('password').focus();
+  </script>
+</body>
+</html>

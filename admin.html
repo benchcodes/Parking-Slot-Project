@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking BM • Admin Dashboard</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="parking.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <style>
+    .admin-container {
+      padding: 120px 2rem 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .admin-header h1 {
+      margin: 0;
+      color: #0a53be;
+      font-size: 2rem;
+    }
+
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .stat-card h3 {
+      margin: 0 0 0.5rem;
+      color: #666;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0a53be;
+    }
+
+    .admin-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .filter-group select {
+      padding: 0.6rem;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+    }
+
+    .admin-table-wrapper {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #f3f4f6;
+      border-bottom: 2px solid #d1d5db;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: #374151;
+      font-size: 0.95rem;
+    }
+
+    tbody tr:hover {
+      background: #f9fafb;
+    }
+
+    .slot-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: #dbeafe;
+      color: #0a53be;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .floor-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: #f3e8ff;
+      color: #9333ea;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .status-active {
+      color: #059669;
+      font-weight: 600;
+    }
+
+    .status-expired {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .delete-btn {
+      padding: 0.5rem 1rem;
+      background: #dc2626;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .delete-btn:hover {
+      background: #b91c1c;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+    }
+
+    .empty-state svg {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0a53be;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .back-link:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <!-- ▸ NAVBAR -------------------------------- -->
+  <header class="navbar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      Parking BM
+    </div>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="form.html">Find Parking</a>
+      <a href="#about">About</a>
+      <a href="#help">Help</a>
+    </nav>
+  </header>
+
+  <!-- ▸ ADMIN CONTENT -------------------------------- -->
+  <div class="admin-container">
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+    <div class="admin-header">
+      <h1>📊 Admin Dashboard</h1>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h3>Total Booked</h3>
+        <div class="number" id="totalBooked">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Available</h3>
+        <div class="number" id="totalAvailable">250</div>
+      </div>
+      <div class="stat-card">
+        <h3>Occupancy Rate</h3>
+        <div class="number" id="occupancyRate">0%</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Revenue</h3>
+        <div class="number">₱<span id="totalRevenue">0</span></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="admin-filters">
+      <div class="filter-group">
+        <label>Filter by Floor:</label>
+        <select id="floorFilter">
+          <option value="">All Floors</option>
+          <option value="2F">2nd Floor</option>
+          <option value="1F">1st Floor</option>
+          <option value="G">Ground Floor</option>
+          <option value="B1">Basement L1</option>
+          <option value="B2">Basement L2</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Sort by:</label>
+        <select id="sortBy">
+          <option value="slot">Slot</option>
+          <option value="name">Name</option>
+          <option value="date">Date</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="admin-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Slot</th>
+            <th>Floor</th>
+            <th>Customer Name</th>
+            <th>License Plate</th>
+            <th>Vehicle</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Duration</th>
+            <th>Cost</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsTableBody">
+          <tr>
+            <td colspan="11" class="empty-state">Loading bookings...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ▸ FOOTER -------------------------------- -->
+  <footer class="footer">
+    <div class="contact">
+      <p>
+        <img src="pictures/location.png" alt="Location" class="contact-icon icon-location">
+        National University, Manila
+      </p>
+      <p>
+        <img src="pictures/call.png" alt="Phone" class="contact-icon icon-phone">
+        (63) 972 859 2648
+      </p>
+      <p>
+        <img src="pictures/gmail.png" alt="Email" class="contact-icon icon-email">
+        numanila@gmail.com
+      </p>
+    </div>
+
+    <div class="about">
+      <h3>About the company</h3>
+      <p>
+        Parking BM is your trusted neighborhood solution for safe,
+        convenient, and affordable parking. Whether you're heading to work,
+        running errands, or just need a spot for a few hours, we've got you
+        covered.
+      </p>
+    </div>
+
+    <div class="socials">
+      <a href="#"><img src="pictures/facebook.png"  alt="Facebook"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" alt="Instagram" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  alt="WhatsApp"  class="social-icon"></a>
+    </div>
+  </footer>
+
+  <script>
+    // Check authentication
+    if (sessionStorage.getItem('adminAuth') !== 'true') {
+      alert('Unauthorized access. Please login first.');
+      window.location = 'admin-login.html';
+    }
+
+    const floorNames = {
+      '2F': '2nd Floor',
+      '1F': '1st Floor',
+      'G': 'Ground Floor',
+      'B1': 'Basement L1',
+      'B2': 'Basement L2'
+    };
+
+    const vehicleEmojis = {
+      'car': '🚗 Car',
+      'motorcycle': '🏍️ Motorcycle',
+      'bicycle': '🚲 Bicycle'
+    };
+
+    let allBookings = [];
+
+    // Load and display bookings
+    async function loadBookings() {
+      try {
+        const snapshot = await db.collection('bookedSlots').get();
+        allBookings = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        renderTable();
+        updateStats();
+      } catch (error) {
+        console.error('Error loading bookings:', error);
+        document.getElementById('bookingsTableBody').innerHTML = 
+          '<tr><td colspan="11" class="empty-state">Error loading bookings</td></tr>';
+      }
+    }
+
+    // Render table with current filters
+    function renderTable() {
+      const floorFilter = document.getElementById('floorFilter').value;
+      const sortBy = document.getElementById('sortBy').value;
+
+      let filtered = allBookings;
+
+      // Filter by floor
+      if (floorFilter) {
+        filtered = filtered.filter(b => b.slotId.startsWith(floorFilter));
+      }
+
+      // Sort
+      filtered.sort((a, b) => {
+        if (sortBy === 'slot') return a.slotId.localeCompare(b.slotId);
+        if (sortBy === 'name') return a.name.localeCompare(b.name);
+        if (sortBy === 'date') return new Date(a.startDateTime) - new Date(b.startDateTime);
+      });
+
+      const tbody = document.getElementById('bookingsTableBody');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="11" class="empty-state">No bookings found</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(booking => {
+        const floor = booking.slotId.split('-')[0];
+        const startDate = new Date(booking.startDateTime);
+        const endDate = new Date(booking.endDateTime);
+        const now = new Date();
+        const isExpired = now > endDate;
+        const status = isExpired ? 'Expired' : 'Active';
+
+        return `
+          <tr>
+            <td><span class="slot-badge">${booking.slotId}</span></td>
+            <td><span class="floor-badge">${floorNames[floor] || floor}</span></td>
+            <td>${booking.name}</td>
+            <td><strong>${booking.plate}</strong></td>
+            <td>${vehicleEmojis[booking.vehicleType] || booking.vehicleType}</td>
+            <td>${startDate.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+            <td>${endDate.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+            <td>${booking.duration} hour${booking.duration > 1 ? 's' : ''}</td>
+            <td>₱${booking.cost}</td>
+            <td><span class="status-${isExpired ? 'expired' : 'active'}">${status}</span></td>
+            <td>
+              <button class="delete-btn" onclick="deleteBooking('${booking.id}')">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Update stats
+    function updateStats() {
+      const now = new Date();
+      const active = allBookings.filter(b => new Date(b.endDateTime) > now);
+      const total = 250; // 40+50+40+60+60
+      const booked = allBookings.length;
+      const available = total - booked;
+      const occupancyRate = Math.round((booked / total) * 100);
+      const totalRevenue = allBookings.reduce((sum, b) => sum + (b.cost || 0), 0);
+
+      document.getElementById('totalBooked').textContent = booked;
+      document.getElementById('totalAvailable').textContent = available;
+      document.getElementById('occupancyRate').textContent = occupancyRate + '%';
+      document.getElementById('totalRevenue').textContent = totalRevenue;
+    }
+
+    // Delete booking
+    async function deleteBooking(slotId) {
+      if (!confirm('Are you sure you want to delete this booking?')) return;
+
+      try {
+        await db.collection('bookedSlots').doc(slotId).delete();
+        alert('Booking deleted successfully!');
+        loadBookings();
+      } catch (error) {
+        console.error('Error deleting booking:', error);
+        alert('Error deleting booking');
+      }
+    }
+
+    // Event listeners
+    document.getElementById('floorFilter').addEventListener('change', renderTable);
+    document.getElementById('sortBy').addEventListener('change', renderTable);
+
+    // Real-time updates
+    db.collection('bookedSlots').onSnapshot(() => {
+      loadBookings();
+    });
+
+    // Initial load
+    loadBookings();
+  </script>
+</body>
+</html>
