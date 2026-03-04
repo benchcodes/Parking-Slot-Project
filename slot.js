@@ -240,12 +240,13 @@ function renderFloor(index) {
 const selectedFloor = sessionStorage.getItem('selectedFloor');
 const floorIndex = selectedFloor ? parseInt(selectedFloor) : 0;
 
-// Highlight the selected floor button
-if (selectedFloor) {
-  document.querySelectorAll('.floor-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', i === floorIndex);
-  });
-}
+// Set current floor to the selected floor
+currentFloor = floorIndex;
+
+// Highlight the selected floor button and render it
+document.querySelectorAll('.floor-btn').forEach((btn, i) => {
+  btn.classList.toggle('active', i === floorIndex);
+});
 
 // Load booked slots and render
 if (typeof getBookedSlotsFromFirebase !== 'undefined') {

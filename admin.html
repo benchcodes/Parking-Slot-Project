@@ -156,6 +156,16 @@
       font-size: 0.85rem;
     }
 
+    .basement-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: #e0e7ff;
+      color: #4f46e5;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
     .status-active {
       color: #059669;
       font-weight: 600;
@@ -223,8 +233,8 @@
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="form.html">Find Parking</a>
-      <a href="#about">About</a>
-      <a href="#help">Help</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
     </nav>
   </header>
 
@@ -414,11 +424,13 @@
         const now = new Date();
         const isExpired = now > endDate;
         const status = isExpired ? 'Expired' : 'Active';
+        const isBasement = floor.startsWith('B');
+        const floorBadgeClass = isBasement ? 'basement-badge' : 'floor-badge';
 
         return `
           <tr>
             <td><span class="slot-badge">${booking.slotId}</span></td>
-            <td><span class="floor-badge">${floorNames[floor] || floor}</span></td>
+            <td><span class="${floorBadgeClass}">${floorNames[floor] || floor}</span></td>
             <td>${booking.name}</td>
             <td><strong>${booking.plate}</strong></td>
             <td>${vehicleEmojis[booking.vehicleType] || booking.vehicleType}</td>

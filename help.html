@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & Tutorial - Parking BM</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="parking.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .help-container {
+      padding: 120px 2rem 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .help-hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .help-hero h1 {
+      font-size: 2.5rem;
+      color: #0a53be;
+      margin-bottom: 1rem;
+    }
+
+    .help-hero p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .quick-link-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .quick-link-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .quick-link-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .quick-link-card h3 {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .tutorial-section {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      margin-bottom: 2rem;
+    }
+
+    .tutorial-section h2 {
+      color: #0a53be;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tutorial-steps {
+      list-style: none;
+      padding: 0;
+      counter-reset: step-counter;
+    }
+
+    .tutorial-steps li {
+      counter-increment: step-counter;
+      position: relative;
+      padding: 1.5rem 1.5rem 1.5rem 4rem;
+      margin-bottom: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #0a53be;
+    }
+
+    .tutorial-steps li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.5rem;
+      background: #0a53be;
+      color: white;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .tutorial-steps li h3 {
+      color: #0a53be;
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .tutorial-steps li p {
+      color: #555;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .tip-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+
+    .tip-box strong {
+      color: #856404;
+    }
+
+    .tip-box p {
+      color: #856404;
+      margin: 0.5rem 0 0 0;
+    }
+
+    .faq-section {
+      margin-top: 2rem;
+    }
+
+    .faq-item {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    }
+
+    .faq-item h3 {
+      color: #0a53be;
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .faq-item p {
+      color: #555;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .contact-help {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .contact-help h2 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .contact-help p {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ▸ NAVBAR -------------------------------- -->
+  <header class="navbar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      Parking BM
+    </div>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="form.html">Find Parking</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <!-- ▸ HELP CONTENT -------------------------------- -->
+  <div class="help-container">
+    <div class="help-hero">
+      <h1>Help & Tutorial</h1>
+      <p>
+        Learn how to use Parking BM's online booking system. Follow our step-by-step guide
+        to reserve your parking spot in minutes!
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="quick-links">
+      <a href="#booking-tutorial" class="quick-link-card">
+        <div class="icon">📖</div>
+        <h3>Booking Tutorial</h3>
+      </a>
+      <a href="#payment-guide" class="quick-link-card">
+        <div class="icon">💳</div>
+        <h3>Payment Guide</h3>
+      </a>
+      <a href="#faq" class="quick-link-card">
+        <div class="icon">❓</div>
+        <h3>FAQ</h3>
+      </a>
+      <a href="#contact-support" class="quick-link-card">
+        <div class="icon">📞</div>
+        <h3>Contact Support</h3>
+      </a>
+    </div>
+
+    <!-- Booking Tutorial -->
+    <div class="tutorial-section" id="booking-tutorial">
+      <h2>📖 How to Book a Parking Spot</h2>
+      <ol class="tutorial-steps">
+        <li>
+          <h3>Choose Your Vehicle Type</h3>
+          <p>
+            Start by selecting your vehicle type (Car, Motorcycle, or Bicycle) on the building 
+            overview page. This ensures you get a slot appropriate for your vehicle.
+          </p>
+        </li>
+        <li>
+          <h3>Select a Floor</h3>
+          <p>
+            Review the available floors and their occupancy rates. Each floor shows real-time 
+            availability. Click on your preferred floor to view individual parking slots.
+          </p>
+        </li>
+        <li>
+          <h3>Pick Your Parking Slot</h3>
+          <p>
+            You'll see a visual layout of all parking slots. Green slots are available, 
+            gray slots are already booked. Click on any available (green) slot to select it.
+          </p>
+        </li>
+        <li>
+          <h3>Fill in Your Details</h3>
+          <p>
+            Enter your full name, contact number, email address, and vehicle license plate number. 
+            All fields are required for booking confirmation.
+          </p>
+        </li>
+        <li>
+          <h3>Select Date and Time</h3>
+          <p>
+            Choose your start date/time and end date/time. The system will automatically calculate 
+            the duration and total cost based on our hourly rates.
+          </p>
+        </li>
+        <li>
+          <h3>Upload Driver's License</h3>
+          <p>
+            For verification purposes, upload a clear photo of your driver's license. 
+            Accepted formats: JPG, PNG (max 5MB).
+          </p>
+        </li>
+        <li>
+          <h3>Review and Confirm</h3>
+          <p>
+            Review your booking details and total cost. Once everything looks correct, 
+            click "Confirm Booking" to complete your reservation.
+          </p>
+        </li>
+        <li>
+          <h3>Get Your Confirmation</h3>
+          <p>
+            You'll receive an instant booking confirmation with your slot details. 
+            Save this confirmation for your records.
+          </p>
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        <strong>💡 Pro Tip:</strong>
+        <p>Book in advance during peak hours (8 AM - 10 AM and 5 PM - 7 PM) to ensure availability!</p>
+      </div>
+    </div>
+
+    <!-- Payment Guide -->
+    <div class="tutorial-section" id="payment-guide">
+      <h2>💳 Payment Information</h2>
+      <h3>Pricing Structure</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 0.5rem 0; color: #555;">🚗 <strong>Car:</strong> ₱60 first 4 hours</li>
+        <li style="padding: 0.5rem 0; color: #555;">🏍️ <strong>Motorcycle:</strong> ₱50 first 4 hours</li>
+        <li style="padding: 0.5rem 0; color: #555;">🚲 <strong>Bicycle:</strong> ₱20 first 4 hours</li>
+      </ul>
+
+      <h3 style="margin-top: 2rem;">Payment Process</h3>
+      <p style="color: #555; line-height: 1.8;">
+        Currently, Parking BM uses a booking system where you reserve your slot in advance. 
+        The system calculates your total cost based on your selected duration. Your booking 
+        is confirmed once you complete the reservation form with all required details.
+      </p>
+
+      <div class="tip-box">
+        <strong>💡 Note:</strong>
+        <p>Make sure to arrive within your booked time window. Late arrivals may result in slot reassignment.</p>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="tutorial-section" id="faq">
+      <h2>❓ Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <div class="faq-item">
+          <h3>Q: Can I modify or cancel my booking?</h3>
+          <p>
+            A: Currently, bookings are final once confirmed. If you need to make changes, 
+            please contact our support team at (63) 972 859 2648.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: How do I know if my booking was successful?</h3>
+          <p>
+            A: After confirming your booking, you'll see a confirmation page with all your 
+            details. The system will also update the availability in real-time.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: What if the slot I want is already taken?</h3>
+          <p>
+            A: Gray slots are already booked. Simply choose another available (green) slot 
+            on the same floor or try a different floor.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: Is my personal information secure?</h3>
+          <p>
+            A: Yes! We use Firebase secure cloud storage for all bookings. Your personal 
+            information is encrypted and protected.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: What are your operating hours?</h3>
+          <p>
+            A: Our parking facility is open 24/7 with round-the-clock security and CCTV monitoring.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: Do I need to print my booking confirmation?</h3>
+          <p>
+            A: While not mandatory, we recommend keeping a digital or printed copy of your 
+            booking details for easy reference.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: What should I do when I arrive?</h3>
+          <p>
+            A: Simply proceed to your booked floor and slot number. Our security personnel 
+            can assist you if needed.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: Are there charging stations for electric vehicles?</h3>
+          <p>
+            A: Electric vehicle charging stations are currently being planned for future implementation. 
+            Stay tuned for updates!
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: What if I need to stay longer than my booked time?</h3>
+          <p>
+            A: Please contact our support team before your booking expires. Additional charges 
+            may apply for extended stays, subject to availability.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Support -->
+    <div class="contact-help" id="contact-support">
+      <h2>📞 Still Need Help?</h2>
+      <p>Our support team is here to assist you!</p>
+      <p><strong>Phone:</strong> (63) 972 859 2648</p>
+      <p><strong>Email:</strong> numanila@gmail.com</p>
+      <p><strong>Location:</strong> National University, Manila</p>
+      <p style="margin-top: 1.5rem;">
+        <a href="form.html" style="display: inline-block; padding: 1rem 2rem; background: white; color: #0a53be; border-radius: 8px; text-decoration: none; font-weight: 600;">
+          Start Booking Now
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ▸ FOOTER -------------------------------- -->
+  <footer class="footer">
+    <div class="contact">
+      <p>
+        <img src="pictures/location.png" alt="Location" class="contact-icon icon-location">
+        National University, Manila
+      </p>
+      <p>
+        <img src="pictures/call.png" alt="Phone" class="contact-icon icon-phone">
+        (63) 972 859 2648
+      </p>
+      <p>
+        <img src="pictures/gmail.png" alt="Email" class="contact-icon icon-email">
+        numanila@gmail.com
+      </p>
+    </div>
+
+    <div class="about">
+      <h3>About the company</h3>
+      <p>
+        Parking BM is your trusted neighborhood solution for safe,
+        convenient, and affordable parking. Whether you're heading to work,
+        running errands, or just need a spot for a few hours, we've got you
+        covered.
+      </p>
+    </div>
+
+    <div class="socials">
+      <a href="#"><img src="pictures/facebook.png"  alt="Facebook"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" alt="Instagram" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  alt="WhatsApp"  class="social-icon"></a>
+      <a href="admin-login.html" style="margin-left: auto; padding: 0.5rem 1rem; background: #0a53be; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">👨‍💼 Admin</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -23,6 +23,7 @@
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
   <script src="firebase-config.js"></script>
 </head>
 <body>
@@ -37,9 +38,10 @@
     </div>
 
     <nav class="nav-links">
-      <a href="#find-parking">Find Parking</a>
-      <a href="#about">About</a>
-      <a href="#help">Help</a>
+      <a href="index.html">Home</a>
+      <a href="form.html">Find Parking</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
     </nav>
   </header>
 
@@ -84,7 +86,7 @@
             </div>
             <div class="payment-input-group">
                 <label for="cardName">Cardholder Name</label>
-                <input type="text" id="cardName" placeholder="JOHN SMITH" required>
+                <input type="text" id="cardName" placeholder="BENCH MATTHEW" required>
             </div>
         </div>
 
@@ -198,6 +200,29 @@
       });
     });
 
+    function convertFileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function withTimeout(promise, timeoutMs) {
+      return Promise.race([
+        promise,
+        new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Storage upload timeout')), timeoutMs);
+        })
+      ]);
+    }
+
+    function estimateBase64Size(dataUrl) {
+      const base64Part = (dataUrl.split(',')[1] || '');
+      return Math.ceil((base64Part.length * 3) / 4);
+    }
+
     // Handle confirm payment button
     confirmPaymentBtn.addEventListener('click', async () => {
       const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
@@ -223,6 +248,9 @@
           return;
         }
         
+        // Add payment method to booking data
+        data.paymentMethod = 'card';
+        
         // Save to Firebase
         const success = await saveBookedSlotToFirebase(data.slot, data);
         if (success) {
@@ -245,13 +273,55 @@
           return;
         }
         
-        // Save to Firebase
-        const success = await saveBookedSlotToFirebase(data.slot, data);
-        if (success) {
-          alert('Payment receipt uploaded successfully! Your booking is pending verification. We will confirm your booking shortly.');
-          // window.location = 'index.html';
-        } else {
-          alert('Error saving booking. Please try again.');
+        // Show loading state
+        confirmPaymentBtn.disabled = true;
+        confirmPaymentBtn.textContent = 'Uploading receipt...';
+        
+        try {
+          // Upload receipt to Firebase Storage (timeout to avoid stuck state)
+          const receiptUrl = await withTimeout(uploadGCashReceipt(data.slot, receiptFile), 8000);
+          
+          // Add payment method and receipt URL to booking data
+          data.paymentMethod = 'gcash';
+          
+          // Save to Firebase with receipt URL
+          const success = await saveBookedSlotToFirebase(data.slot, data, receiptUrl);
+          if (success) {
+            alert('Payment receipt uploaded successfully! Your booking is pending verification. We will confirm your booking shortly.');
+            // window.location = 'index.html';
+          } else {
+            alert('Error saving booking. Please try again.');
+          }
+        } catch (error) {
+          console.error('Storage upload failed. Falling back to Firestore receipt storage:', error);
+
+          try {
+            confirmPaymentBtn.textContent = 'Saving receipt...';
+            const receiptBase64 = await convertFileToBase64(receiptFile);
+            const estimatedBytes = estimateBase64Size(receiptBase64);
+
+            // Firestore document max size is ~1 MiB, keep a safe limit
+            if (estimatedBytes > 700 * 1024) {
+              alert('Receipt is too large for fallback mode. Please upload a smaller image (recommended under 700KB).');
+              return;
+            }
+
+            data.paymentMethod = 'gcash';
+
+            const success = await saveBookedSlotToFirebase(data.slot, data, null, receiptBase64);
+            if (success) {
+              alert('Receipt saved successfully (fallback mode). Your booking is pending verification.');
+            } else {
+              alert('Error saving booking. Please try again.');
+            }
+          } catch (fallbackError) {
+            console.error('Fallback save error:', fallbackError);
+            alert('Error saving receipt. Please try again.');
+          }
+        } finally {
+          // Reset button state
+          confirmPaymentBtn.disabled = false;
+          confirmPaymentBtn.textContent = 'Confirm Payment';
         }
       }
       

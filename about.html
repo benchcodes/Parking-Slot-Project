@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Parking BM</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="parking.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    .about-container {
+      padding: 120px 2rem 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .about-hero h1 {
+      font-size: 2.5rem;
+      color: #0a53be;
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .about-section {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      margin-bottom: 2rem;
+    }
+
+    .about-section h2 {
+      color: #0a53be;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .about-section p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .about-section ul li {
+      padding: 0.5rem 0;
+      color: #555;
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+    }
+
+    .about-section ul li::before {
+      content: "✓";
+      color: #059669;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+    }
+
+    .stat-box .number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-box .label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .team-section {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .team-section h2 {
+      color: #0a53be;
+      margin-bottom: 2rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .value-card {
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .value-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card h3 {
+      color: #0a53be;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-card p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ▸ NAVBAR -------------------------------- -->
+  <header class="navbar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/>
+        <polygon points="12 15 17 21 7 21 12 15"/>
+      </svg>
+      Parking BM
+    </div>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="form.html">Find Parking</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <!-- ▸ ABOUT CONTENT -------------------------------- -->
+  <div class="about-container">
+    <div class="about-hero">
+      <h1>About Parking BM</h1>
+      <p>
+        Your trusted partner for convenient, secure, and affordable parking solutions
+        at National University, Manila. We're revolutionizing the way you park.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="number">250+</div>
+        <div class="label">Parking Slots</div>
+      </div>
+      <div class="stat-box">
+        <div class="number">24/7</div>
+        <div class="label">Security</div>
+      </div>
+      <div class="stat-box">
+        <div class="number">5</div>
+        <div class="label">Floors</div>
+      </div>
+      <div class="stat-box">
+        <div class="number">100%</div>
+        <div class="label">CCTV Coverage</div>
+      </div>
+    </div>
+
+    <!-- Mission -->
+    <div class="about-section">
+      <h2>🎯 Our Mission</h2>
+      <p>
+        At Parking BM, we're committed to making parking simple, accessible, and stress-free. 
+        We believe that finding a parking spot shouldn't be a hassle. That's why we've created 
+        a modern online booking system that allows you to reserve your spot in advance, so you 
+        can focus on what really matters.
+      </p>
+    </div>
+
+    <!-- What We Offer -->
+    <div class="about-section">
+      <h2>🚗 What We Offer</h2>
+      <ul>
+        <li>Multiple floors with 250+ parking slots for cars, motorcycles, and bicycles</li>
+        <li>Real-time availability updates so you always know what's available</li>
+        <li>Easy online booking with instant confirmation</li>
+        <li>Secure payment system with digital receipts</li>
+        <li>24/7 CCTV surveillance and security patrol</li>
+        <li>Covered parking to protect your vehicle from weather</li>
+        <li>Wide parking spaces for comfortable maneuvering</li>
+        <li>Accessible location at National University, Manila</li>
+      </ul>
+    </div>
+
+    <!-- Our Values -->
+    <div class="about-section">
+      <h2>💎 Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="icon">🔒</div>
+          <h3>Security First</h3>
+          <p>Your vehicle's safety is our top priority with 24/7 monitoring</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">⚡</div>
+          <h3>Convenience</h3>
+          <p>Book in seconds from anywhere, anytime</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">💰</div>
+          <h3>Fair Pricing</h3>
+          <p>Transparent, affordable rates with no hidden fees</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🤝</div>
+          <h3>Customer Care</h3>
+          <p>Dedicated support to assist you whenever you need</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="about-section">
+      <h2>⭐ Why Choose Parking BM?</h2>
+      <p>
+        <strong>Prime Location:</strong> Located at National University, Manila, we're strategically 
+        positioned for students, staff, and visitors.
+      </p>
+      <p>
+        <strong>Modern Technology:</strong> Our advanced booking system uses real-time data to show 
+        you exactly what's available, eliminating guesswork.
+      </p>
+      <p>
+        <strong>Flexible Options:</strong> Whether you need parking for an hour, a day, or longer, 
+        we have options that fit your schedule.
+      </p>
+      <p>
+        <strong>Peace of Mind:</strong> With comprehensive security measures including CCTV cameras 
+        and security patrols, you can park with confidence.
+      </p>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="about-section" style="text-align: center;">
+      <h2>📞 Get In Touch</h2>
+      <p>
+        Have questions or need assistance? We're here to help!
+      </p>
+      <p style="margin: 1.5rem 0;">
+        <strong>📍 National University, Manila</strong><br>
+        <strong>📞 (63) 972 859 2648</strong><br>
+        <strong>📧 numanila@gmail.com</strong>
+      </p>
+      <a href="form.html" style="display: inline-block; padding: 1rem 2rem; background: #0a53be; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem;">
+        Book Your Spot Now
+      </a>
+    </div>
+  </div>
+
+  <!-- ▸ FOOTER -------------------------------- -->
+  <footer class="footer">
+    <div class="contact">
+      <p>
+        <img src="pictures/location.png" alt="Location" class="contact-icon icon-location">
+        National University, Manila
+      </p>
+      <p>
+        <img src="pictures/call.png" alt="Phone" class="contact-icon icon-phone">
+        (63) 972 859 2648
+      </p>
+      <p>
+        <img src="pictures/gmail.png" alt="Email" class="contact-icon icon-email">
+        numanila@gmail.com
+      </p>
+    </div>
+
+    <div class="about">
+      <h3>About the company</h3>
+      <p>
+        Parking BM is your trusted neighborhood solution for safe,
+        convenient, and affordable parking. Whether you're heading to work,
+        running errands, or just need a spot for a few hours, we've got you
+        covered.
+      </p>
+    </div>
+
+    <div class="socials">
+      <a href="#"><img src="pictures/facebook.png"  alt="Facebook"  class="social-icon"></a>
+      <a href="#"><img src="pictures/instagram.png" alt="Instagram" class="social-icon"></a>
+      <a href="#"><img src="pictures/whatsapp.png"  alt="WhatsApp"  class="social-icon"></a>
+      <a href="admin-login.html" style="margin-left: auto; padding: 0.5rem 1rem; background: #0a53be; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">👨‍💼 Admin</a>
+    </div>
+  </footer>
+
+</body>
+</html>
